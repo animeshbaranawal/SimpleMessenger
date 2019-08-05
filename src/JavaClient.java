@@ -42,9 +42,8 @@ public class JavaClient {
     private boolean UIMode = true;
 
     /// directories for file storage
-    private String inputDirectoryPath = "/home/animeshbaranawal/Downloads/Input";
-    private String outputDirectoryRootPath = "/home/animeshbaranawal/Downloads/";
-    private String outputDirectoryPath = "";
+    private final String inputDirectoryPath;
+    private final String outputDirectoryPath;
 
     final Logger logger = Logger.getLogger(JavaClient.class.getName());
     private final int fileBlockSize = 2048;
@@ -216,12 +215,14 @@ public class JavaClient {
         }
     }
 
-    public JavaClient(String sIP) {
+    public JavaClient(String sIP, String inputPath, String outputPath) {
         handler = new ClientServiceHandler(this);
         processor = new ClientService.Processor(handler);
         clientInfo = new UserDefinition();
         chatBoxes = new HashMap<String, ChatBox>();
         serverIP = sIP;
+        inputDirectoryPath = inputPath;
+        outputDirectoryPath = outputPath;
     }
 
     /// get client details
@@ -233,14 +234,22 @@ public class JavaClient {
     final long getTimestamp() { return new Date().getTime(); }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        if(args.length < 4) {
-            System.out.println("Client atleast requires 4 arguments: serverIP, clientIP, uniqueID, port");
+        if(args.length < 6) {
+            System.out.println("Client atleast requires 6 arguments: serverIP, clientIP, uniqueID, port"+
+                    ", inputDirectoryPath, outputDirectoryPath");
             System.exit(3); /// invalid arguments
         }
 
-        JavaClient clientSide = new JavaClient(args[0]);
-        if(args.length == 6) {
-            File commandFile = new File(args[4]);
+        File i = new File(args[4]);
+        File o = new File(args[5]);
+        if(!(i.exists() && o.exists())) {
+            System.out.println("Invalid directory paths given");
+            System.exit(4); /// invalid paths
+        }
+
+        JavaClient clientSide = new JavaClient(args[0], args[4], args[5]);
+        if(args.length == 8) {
+            File commandFile = new File(args[6]);
             if(commandFile.exists()) { /// if external file mentioned.. UI disabled
                 clientSide.UIMode = false;
             }
@@ -274,9 +283,9 @@ public class JavaClient {
             TimeUnit.SECONDS.sleep(2);
 
             Random randomNumberGenerator = new Random();
-            TimeUnit.SECONDS.sleep((Integer.parseInt(args[5])+2)/3);
+            TimeUnit.SECONDS.sleep((Integer.parseInt(args[7])+2)/3);
 
-            BufferedReader commandReader = new BufferedReader(new FileReader(args[4]));
+            BufferedReader commandReader = new BufferedReader(new FileReader(args[6]));
             String line = commandReader.readLine();
             while(line != null) {
                 String[] lineParts = line.split(" ");
@@ -344,9 +353,6 @@ public class JavaClient {
                   homeBox = new HomeBox(this);
                   addGroups();
                 }
-                File outputDirectory = new File(outputDirectoryRootPath+clientInfo.uniqueID);
-                if(!outputDirectory.exists()) outputDirectory.mkdir();
-                outputDirectoryPath = outputDirectory.exists() ? outputDirectory.getPath() : "";
             }
 
             logger.log(Level.INFO, success ? "Connected to server" : "Could not connect to server");

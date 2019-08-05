@@ -13,18 +13,16 @@ import java.util.logging.Level;
 
 public class FileTransferServiceHandler implements FileTransferService.Iface {
     private HashMap<String, FileDefinition> ongoingUploads;
-    private String serverStoragePath = "/home/animeshbaranawal/Desktop/IISc/DREAMLab/SimpleMessenger/server_storage";
 
     private JavaServer parentServer;
+    private final String serverStoragePath;
 
-    FileTransferServiceHandler(JavaServer server) {
+    FileTransferServiceHandler(JavaServer server, String path) {
         parentServer = server;
         ongoingUploads = new HashMap<>();
 
         /// create storage path
-        File serverStorage = new File(serverStoragePath);
-        if(!serverStorage.exists()) serverStorage.mkdir();
-        serverStoragePath = serverStorage.exists() ? serverStoragePath : "";
+        serverStoragePath = path;
     }
 
     /////////////////////////////// UPLOAD APIS ////////////////////////////////////

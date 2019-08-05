@@ -23,22 +23,28 @@ public class JavaServer {
 
     final Logger logger = Logger.getLogger(JavaServer.class.getName());
 
-    public JavaServer(int numThreads) {
+    public JavaServer(int numThreads, String storagePath) {
         ServerServiceHandler handler = new ServerServiceHandler(this, numThreads);
         processor = new ServerService.Processor(handler);
 
-        FileTransferServiceHandler fileHandler = new FileTransferServiceHandler(this);
+        FileTransferServiceHandler fileHandler = new FileTransferServiceHandler(this, storagePath);
         fileProcessor = new FileTransferService.Processor(fileHandler);
     }
 
     public static void main(String [] args) throws IOException {
-        if(args.length < 1)
+        if(args.length < 2)
         {
-            System.out.println("Server needs 1 argument");
+            System.out.println("Server needs 2 argument");
             System.exit(3); /// invalid arguments
         }
 
-        JavaServer serverSide = new JavaServer(Integer.parseInt(args[0]));
+        File s = new File(args[1]);
+        if(!s.exists()) {
+            System.out.println("Invalid path given");
+            System.exit(4);
+        }
+
+        JavaServer serverSide = new JavaServer(Integer.parseInt(args[0]), args[1]);
 
         /// logger properties
         FileHandler f = new FileHandler("server.txt");
