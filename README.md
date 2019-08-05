@@ -21,14 +21,28 @@ See deployment for notes on how to deploy the project on a live system.
 IntelliJ was used as IDE support for building the project on Ubuntu18.04
 However, command line can be used as well:
 1. javac -cp .:libs/\* src/\* gen-java/fileTransfer/\* gen-java/simpleMessenger/\*
-2. mkdir out; cd out; mkdir fileTransfer; mkdir simpleMessenger
+2. mkdir out; cd out; mkdir fileTransfer; mkdir simpleMessenger; cd ..
 3. mv src/\*.class out/
 4. mv gen-java/fileTransfer/\*.class out/fileTransfer/
 5. mv gen-java/simpleMessenger/\*.class out/simpleMessenger/
 
+## Deployment
+
+To run the server:
+java -cp out/:libs/\* JavaServer <numServerThreads>
+
+To run the client:
+java -cp out/:libs/\* JavaClient <serverIP> <clientIP> <clientID> <clientPort>
+
+If both server and client run on localhost, the client cannot use ports 9089 and 9090 since they are used by the server.
+If two clients run on same IP, they cannot use the same ports.
+
 ## Running the tests
 
-Explain how to run the automated tests for this system
+JavaClient also supports a non interactive interface, where given a file, it runs all the commands in the file.
+This interface is only used for testing the application via scripts.
+
+1. generateCommands.py :
 
 ### Break down into end to end tests
 
@@ -46,9 +60,6 @@ Explain what these tests test and why
 Give an example
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 

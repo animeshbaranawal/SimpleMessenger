@@ -255,7 +255,7 @@ public class JavaClient {
         clientSide.clientInfo.port = Integer.parseInt(args[3]);
 
         /// set logger properties
-        FileHandler f = new FileHandler(args[1]+"_client.txt");
+        FileHandler f = new FileHandler(args[2]+"_client.txt");
         f.setFormatter(new SimpleFormatter());
         clientSide.logger.addHandler(f);
 
