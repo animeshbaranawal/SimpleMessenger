@@ -1,14 +1,9 @@
 # Simple Messenger
-A simple messenger service using Apache Thrift and Java Swing.
-The messenger supports:
-a) P2P messaging
-b) Multicast messaging
-c) File Transfer across clients
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-See deployment for notes on how to deploy the project on a live system.
+A simple messenger service using Apache Thrift and Java Swing.<br/>
+The messenger supports:<br/>
+a) P2P messaging<br/>
+b) Multicast messaging<br/>
+c) File Transfer across clients<br/>
 
 ### Prerequisites
 
@@ -18,8 +13,8 @@ See deployment for notes on how to deploy the project on a live system.
 
 ### Installing
 
-IntelliJ was used as IDE support for building the project on Ubuntu18.04
-However, command line can be used as well:
+IntelliJ was used as IDE support for building the project on Ubuntu18.04<br/>
+However, command line can be used as well:<br/>
 1. javac -cp .:libs/\* src/\* gen-java/fileTransfer/\* gen-java/simpleMessenger/\*
 2. mkdir out; cd out; mkdir fileTransfer; mkdir simpleMessenger; cd ..
 3. mv src/\*.class out/
@@ -28,28 +23,27 @@ However, command line can be used as well:
 
 ## Deployment
 
-To run the server:
-java -cp out/:libs/\* JavaServer \<numServerThreads\>
+To run the server:<br/>
+java -cp out/:libs/\* JavaServer \<numServerThreads\><br/><br/>
 
-To run the client:
-java -cp out/:libs/\* JavaClient \<serverIP\> \<clientIP\> \<clientID\> \<clientPort\>
+To run the client:<br/>
+java -cp out/:libs/\* JavaClient \<serverIP\> \<clientIP\> \<clientID\> \<clientPort\><br/><br/>
 
-If both server and client run on localhost, the client cannot use ports 9089 and 9090 since they are used by the server.
+If both server and client run on localhost, the client cannot use ports 9089 and 9090 since they are used by the server.<br/>
 If two clients run on same IP, they cannot use the same ports.
 
 ## Running the tests
 
-JavaClient also supports a non interactive interface, where given a file, it runs all the commands in the file.
-This interface is only used for testing the application via scripts.
+JavaClient also supports a non interactive interface, where given a file, it runs all the commands in the file.<br/>
+This interface is only used for testing the application via scripts.<br/>
 
 1. runClient.sh : bash script to run client
 2. runServer.sh : bash script to run server
-3. generateCommands.py : takes two arguments - 1) number of serverThreads 2) number of clients to simulate
-   Geneates commands for them and adds it to the file.
-   Runs the server and clients.
-   When commands finish, closes the terminals.
-   Generates bash script test.sh to run the simulation.
-   Generates bash script clean.sh to clean the directory.
+3. generateCommands.py : takes two arguments - 1) number of serverThreads 2) number of clients to simulate<br/>
+   Geneates commands for them and adds it to the file.<br/>
+   Runs the server and clients.<br/>
+   Generates bash script test.sh to run the simulation.<br/>
+   Generates bash script clean.sh to kill the processes and clean the directory.<br/>
 
 ### Break down into end to end tests
 
