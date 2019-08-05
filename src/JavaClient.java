@@ -340,8 +340,10 @@ public class JavaClient {
 
             boolean success = serverServiceClient.join(clientInfo);
             if(success) {
-                if(UIMode) homeBox = new HomeBox(this);
-                addGroups();
+                if(UIMode) {
+                  homeBox = new HomeBox(this);
+                  addGroups();
+                }
                 File outputDirectory = new File(outputDirectoryRootPath+clientInfo.uniqueID);
                 if(!outputDirectory.exists()) outputDirectory.mkdir();
                 outputDirectoryPath = outputDirectory.exists() ? outputDirectory.getPath() : "";

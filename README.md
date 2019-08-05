@@ -29,10 +29,10 @@ However, command line can be used as well:
 ## Deployment
 
 To run the server:
-java -cp out/:libs/\* JavaServer <numServerThreads>
+java -cp out/:libs/\* JavaServer \<numServerThreads\>
 
 To run the client:
-java -cp out/:libs/\* JavaClient <serverIP> <clientIP> <clientID> <clientPort>
+java -cp out/:libs/\* JavaClient \<serverIP\> \<clientIP\> \<clientID\> \<clientPort\>
 
 If both server and client run on localhost, the client cannot use ports 9089 and 9090 since they are used by the server.
 If two clients run on same IP, they cannot use the same ports.
@@ -42,7 +42,14 @@ If two clients run on same IP, they cannot use the same ports.
 JavaClient also supports a non interactive interface, where given a file, it runs all the commands in the file.
 This interface is only used for testing the application via scripts.
 
-1. generateCommands.py :
+1. runClient.sh : bash script to run client
+2. runServer.sh : bash script to run server
+3. generateCommands.py : takes two arguments - 1) number of serverThreads 2) number of clients to simulate
+   Geneates commands for them and adds it to the file.
+   Runs the server and clients.
+   When commands finish, closes the terminals.
+   Generates bash script test.sh to run the simulation.
+   Generates bash script clean.sh to clean the directory.
 
 ### Break down into end to end tests
 
