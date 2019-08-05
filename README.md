@@ -24,10 +24,10 @@ However, command line can be used as well:<br/>
 ## Deployment
 
 To run the server:<br/>
-java -cp out/:libs/\* JavaServer \<numServerThreads\><br/><br/>
+java -cp out/:libs/\* JavaServer \<numServerThreads\> \<storagePath\> <br/><br/>
 
 To run the client:<br/>
-java -cp out/:libs/\* JavaClient \<serverIP\> \<clientIP\> \<clientID\> \<clientPort\><br/><br/>
+java -cp out/:libs/\* JavaClient \<serverIP\> \<clientIP\> \<clientID\> \<clientPort\> \<inputPath\> \<outputPath\> <br/><br/>
 
 If both server and client run on localhost, the client cannot use ports 9089 and 9090 since they are used by the server.<br/>
 If two clients run on same IP, they cannot use the same ports.
