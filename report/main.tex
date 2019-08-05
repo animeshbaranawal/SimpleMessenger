@@ -19,7 +19,7 @@ The objective is to create a chat messenger service that supports point to point
  
  
 \section{Methods}
-The chat messenger is models as a central server node acting as a relay between different users, which are modeled as client nodes. Since Apache Thrift does not support any direct 2-way communication[2], each client node runs a mini, light weight server on its side. Java Swing is used as the supporting user-interface framework, and the backend services are implemented in Java respectively.
+The chat messenger is modeled as a central server node acting as a relay between different users, which are modeled as client nodes. Since Apache Thrift does not support any direct 2-way communication[2], each client node runs a mini, light weight server on its side. Java Swing is used as the supporting user-interface framework, and the back-end services are implemented in Java respectively.
 
 \subsection{Basic Structures}
 \begin{itemize}
@@ -32,7 +32,7 @@ The chat messenger is models as a central server node acting as a relay between 
 
 \subsection{Backend Services}
 \begin{itemize}
-    \item \textbf{ServerService}: It is hosted by central server for message communication. It supports the following RPC methods: \textit{join}, \textit{connectTo}, \textit{sendMessage}, \textit{joinGroup}, \textit{leaveGroup}. It also spawns dispatcher threads which empties the server message queue.
+    \item \textbf{ServerService}: It is hosted by central server for message communication. It supports the following RPC methods: \textit{join}, \textit{connectTo}, \textit{sendMessage}, \textit{joinGroup}, \textit{leaveGroup}. It also spawns dispatcher threads which empty the server message queue.
     \item \textbf{FileTransferService}: It is hosted by central server for file communication. it supports the following RPC methods: \textit{startUpload}, \textit{uploadChunk}, \textit{endUpload}, \textit{startDownload}, \textit{downloadChunk}.
     \item \textbf{ClientService}: It is hosted by client for communication from server. It supports the following RPC methods: \textit{receive}. It also spawns a receiver thread which empties the client message queue.
 \end{itemize}
@@ -46,7 +46,7 @@ The chat messenger is models as a central server node acting as a relay between 
         \label{fig:diagram1}
     \end{figure}
     
-    \item FileTransfer: The file transfer workflow is similar to the workflow used for the same in WhatsApp. The client starts uploading by calling \textit{startUpload} on FileTransferService and then uploads the file in chunks of 2048 bytes using \textit{uploadChunk}, followed by an \textit{endUpload} call. This stores the file on the server storage. The client then sends a message to recipient node with the file name. The recipient client calls \textit{startDownload} on FileTransferService followed by \textit{downloadChunk} to downloads the file in chunks.
+    \item FileTransfer: The file transfer workflow is similar to the workflow used in WhatsApp. The client starts uploading by calling \textit{startUpload} on FileTransferService and then uploads the file in chunks of 2048 bytes using \textit{uploadChunk}, followed by an \textit{endUpload} call. This stores the file on the server storage. The client then sends a message to recipient node with the file name. The recipient client calls \textit{startDownload} on FileTransferService followed by \textit{downloadChunk} calls to download the file.
     \begin{figure}[h]
         \hspace{1cm}
         \includegraphics[scale=0.35]{FileTransferWorkflow}
@@ -58,10 +58,10 @@ The chat messenger is models as a central server node acting as a relay between 
 
 \section{Results}
 \subsection{Validation}
-\texttt{java.util.logging} was used for creating logs of ClientService and ServerService. Every message sent and received by the client is logged along with the sender unique identifier, receiver unique identifier, sent time-stamp and received time-stamp. Latency is measured by calculating the difference between the sent timestamp and received timestamp. Time-stamps for when file upload/download request was sent and when the upload/downloads got completed are also logged. File transfer time is calculated as the difference of these two timestamps. \par For scenario 1 and 2, simulations were done on a single machine with the server and clients using different port numbers for running the services. The average of maximum latency observed across simulations is used for plotting results. For scenario 3, 2 VMs are set up for simulating clients with original machine simulating the server. 
+\texttt{java.util.logging} was used for creating logs of ClientService and ServerService. Every message sent and received by the client is logged along with the sender unique identifier, receiver unique identifier, sent time-stamp and received time-stamp. Latency is measured by calculating the difference between the sent timestamp and received timestamp. Time-stamps for when file upload/download request was sent and when the upload/download got completed are also logged. File transfer time is calculated as the difference of these two timestamps. \par For scenario 1 and 2, simulations were done on a single machine with the server and clients using different port numbers for running the services. The average of maximum latency observed across simulations is used for plotting results. For scenario 3, 2 VMs are set up for simulating clients with original machine simulating the server. 
 
 \subsubsection{Scenario 1: P2P communication}
-N different users communicate point to point with each other in this scenario. To validate this scenario, message each sent message in the sending client log is checked in the log of the recipient client node.
+N different users communicate point to point with each other in this scenario. To validate this scenario, each sent message in the sending client log is checked in the log of the recipient client node.
 The simulation was run for N=2,5,10,15,20,25 with the server running 1 dispatcher thread. Figure 3 shows the latency observed. This scenario was simulated 10 times.
 
 \subsubsection{Scenario 2: Multicast communication}
