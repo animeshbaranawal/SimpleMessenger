@@ -92,7 +92,7 @@ public class ChatBox {
         receiveFileButton = new JButton("Receive File");
         receiveFileButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                parent.receiveFile(recipientID, fileTextField.getText());
+                parent.receiveFile(fileTextField.getText(), recipientID, multicast);
             }
         });
         receiveStatus = new JLabel("",JLabel.RIGHT);

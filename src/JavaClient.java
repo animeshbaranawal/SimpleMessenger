@@ -154,13 +154,13 @@ public class JavaClient {
             }
 
             try {
-                TTransport ftransport = new TSocket("localhost", 9089);
+                TTransport ftransport = new TSocket(serverIP, 9089);
                 ftransport.open();
 
                 TProtocol protocol = new  TBinaryProtocol(ftransport);
                 FileTransferService.Client fServiceClient = new FileTransferService.Client(protocol);
 
-                String hashedString = path+"_"+clientInfo.uniqueID;
+                String hashedString = path+"_"+(multicast ? clientID : clientInfo.uniqueID);
                 hashedString = String.valueOf(hashedString.hashCode());
 
                 int fSize = fServiceClient.startDownload(hashedString);
@@ -305,7 +305,7 @@ public class JavaClient {
                         clientSide.sendFile(lineParts[1], lineParts[2], false);
                         break;
                     case "RECEIVEFILE":
-                        clientSide.receiveFile(lineParts[1], lineParts[2]);
+                        clientSide.receiveFile(lineParts[1], lineParts[2], false);
                         break;
                     case "JOINGROUP":
                         clientSide.joinGroup(lineParts[1]);
@@ -491,8 +491,8 @@ public class JavaClient {
         new FileTransferThread(false, filePath, ID, group);
     }
 
-    void receiveFile(String recipientID, String filePath) {
+    void receiveFile(String filePath, String ID, boolean group) {
         logger.log(Level.INFO, getTimestamp()+"::Receive File "+filePath+" request");
-        new FileTransferThread(true, filePath, recipientID, false);
+        new FileTransferThread(true, filePath, ID, group);
     }
 }
