@@ -241,8 +241,10 @@ public class JavaClient {
         }
 
         File i = new File(args[4]);
+        boolean validI = i.exists() && i.isDirectory();
         File o = new File(args[5]);
-        if(!(i.exists() && o.exists())) {
+        boolean validO = o.exists() && o.isDirectory();
+        if(!validI || !validO) {
             System.out.println("Invalid directory paths given");
             System.exit(4); /// invalid paths
         }

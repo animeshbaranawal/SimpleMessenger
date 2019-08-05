@@ -39,7 +39,7 @@ public class JavaServer {
         }
 
         File s = new File(args[1]);
-        if(!s.exists()) {
+        if(!s.exists() || !s.isDirectory()) {
             System.out.println("Invalid path given");
             System.exit(4);
         }
