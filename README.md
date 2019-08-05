@@ -5,6 +5,19 @@ a) P2P messaging<br/>
 b) Multicast messaging<br/>
 c) File Transfer across clients<br/>
 
+### Details
+1. Multicast messaging <br/>
+Multi cast messaging is supported in the form of chatrooms. Any message sent to a
+chatroom are multicasted to all its members. A client can join or leave a chatroom
+through the UI interface. For now, there are 3 chatrooms and visible to all connected users.
+Anyone can join. An extension would be to have private chatrooms.
+
+2. File Transfer <br/>
+To start a server, it needs a storagePath. To start a client, it needs two paths: inputPath and outputPath.
+Files which are present in the inputPath directory can be sent to other clients. They will first be sent to the server
+where it will be stored in storagePath directory. File which are received by a client are automatically stored in
+outputPath directory.
+
 ### Prerequisites
 
 1. java
