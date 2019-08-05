@@ -247,9 +247,6 @@ public class JavaClient {
         }
 
         /// initiate client details
-        InetAddress localhost = InetAddress.getLocalHost();
-        System.out.println("System IP Address : " + (localhost.getHostAddress()).trim());
-
         clientSide.clientInfo.ip_addr = args[1];
         clientSide.clientInfo.uniqueID = args[2];
         clientSide.clientInfo.port = Integer.parseInt(args[3]);

@@ -40,10 +40,18 @@ This interface is only used for testing the application via scripts.<br/>
 1. runClient.sh : bash script to run client
 2. runServer.sh : bash script to run server
 3. generateCommands.py : takes two arguments - 1) number of serverThreads 2) number of clients to simulate<br/>
-   Geneates commands for them and adds it to the file.<br/>
+   Generates commands for clients.<br/>
    Runs the server and clients.<br/>
    Generates bash script test.sh to run the simulation.<br/>
-   Generates bash script clean.sh to kill the processes and clean the directory.<br/>
+   Generates bash script clean.sh to kill the processes and clean the directory.
+4. generateMulticastCommands.py : Same as generateCommands.py<br/>
+   Generates commands for multicast mode.<br/>
+   Runs the server and clients.<br/>
+   Generates bash script test.sh to run the simulation.<br/>
+   Generates bash script clean.sh to kill the processes and clean the directory.
+5. analyseLogs.py : Validates the logs. Takes multicast boolean as argument.
+6. runScripts.py : Runs the entire simulation for different clients and different threads. <br/>
+   Stores the results of latency in results.txt <br/>
 
 ### Break down into end to end tests
 
