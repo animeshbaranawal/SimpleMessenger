@@ -16,23 +16,18 @@ for i in range(clients):
     activeUsers.append(userName)
 
 ## generate commands
+groupID = "room1"
 for i in range(clients):
     user = activeUsers[i] ## current user
 
-    f = open(user+"_commands.txt",'w')
-    numberOfConnects = min(5*clients,50)
-    for j in range(numberOfConnects):
-        clientUser = activeUsers[random.randint(0,clients-1)]
-        while(clientUser == user):
-            clientUser = activeUsers[random.randint(0,clients-1)]
-        f.write("CONNECT "+clientUser+"\n")
+    f = open(user+"_roomCommands.txt",'w')
 
-        numberOfMessages = random.randint(1,50)
-        for k in range(numberOfMessages):
-            messageLength = random.randint(10,30)
-            message = ''.join(random.choice(letters) for i in range(messageLength))
-            f.write("SENDMESSAGE "+clientUser+" "+message+"\n")
-        f.write("CLOSE "+clientUser+"\n")
+    numberOfMessages = random.randint(200,1000)
+    for k in range(numberOfMessages):
+        messageLength = random.randint(10,30)
+        message = ''.join(random.choice(letters) for i in range(messageLength))
+        f.write("SENDGROUPMESSAGE "+groupID+" "+message+"\n")
+
     f.close()
 
 ## generate testScript
@@ -42,7 +37,7 @@ f.write("gnome-terminal -- ./runServer.sh "+str(serverThreads)+"\nsleep 2\n\n")
 startingPort = 9091
 sleepTime = clients
 for user in activeUsers:
-    f.write("gnome-terminal -- ./runClient.sh localhost localhost "+user+" "+str(startingPort)+" "+user+"_commands.txt "+str(sleepTime)+"\n")
+    f.write("gnome-terminal -- ./runClient.sh localhost localhost "+user+" "+str(startingPort)+" "+user+"_roomCommands.txt "+str(sleepTime)+"\n")
     startingPort += 1
     sleepTime -= 1
 f.close()
@@ -57,6 +52,6 @@ f.write("mkdir -p logs\n")
 f.write("mv server.txt logs/\n")
 for user in activeUsers:
     f.write("mv "+user+"_client.txt logs/\n")
-    f.write("rm "+user+"_commands.txt\n")
+    f.write("rm "+user+"_roomCommands.txt\n")
     f.write("rm -rf /home/animeshbaranawal/Downloads/"+user+"\n\n")
 f.close()

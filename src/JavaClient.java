@@ -273,6 +273,9 @@ public class JavaClient {
 
         /// read commands file if any
         if(!clientSide.UIMode) {
+            clientSide.joinGroup("room1");
+            TimeUnit.SECONDS.sleep(2);
+
             Random randomNumberGenerator = new Random();
             TimeUnit.SECONDS.sleep((Integer.parseInt(args[5])+2)/3);
 
