@@ -38,11 +38,11 @@ for i in range(clients):
 ## generate testScript
 f = open("test.sh",'w')
 
-f.write("gnome-terminal -- ./runServer.sh "+str(serverThreads)+"\nsleep 2\n\n")
+f.write("gnome-terminal -- ./runServer.sh "+str(serverThreads)+" /home/animeshbaranawal/Downloads \nsleep 2\n\n")
 startingPort = 9091
 sleepTime = clients
 for user in activeUsers:
-    f.write("gnome-terminal -- ./runClient.sh localhost localhost "+user+" "+str(startingPort)+" "+user+"_commands.txt "+str(sleepTime)+"\n")
+    f.write("gnome-terminal -- ./runClient.sh localhost localhost "+user+" "+str(startingPort)+" /home/animeshbaranawal/Downloads/Input /home/animeshbaranawal/Desktop "+user+"_commands.txt "+str(sleepTime)+"\n")
     startingPort += 1
     sleepTime -= 1
 f.close()
